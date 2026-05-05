@@ -24,4 +24,4 @@ def save_trip():
     return jsonify({"success": success, "id": id}), 200 if success else 500
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(host='0.0.0.0', port=5001)

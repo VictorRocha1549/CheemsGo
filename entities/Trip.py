@@ -1,7 +1,4 @@
-
 from persistences.db import get_connection
-
-
 
 class Trip:
     def __init__(self, name: str, city: str, latitude: float, longitude: float):
@@ -14,7 +11,7 @@ class Trip:
         try:
             connection = get_connection()
             cursor = connection.cursor(dictionary=True)
-            cursor.execute("SELECT name, city, latitude, longitude FROM trip")
+            cursor.execute("SELECT id, name, city, latitude, longitude FROM trip")
             return cursor.fetchall()
         except Exception as ex:
             print(ex)
