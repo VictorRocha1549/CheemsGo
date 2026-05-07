@@ -1,7 +1,7 @@
 import os
 import mysql.connector
 
-def obtener_conexion():
+def get_connection():
     try:
         # Leemos los valores desde el entorno
         db_host = os.environ.get('DB_HOST')
