@@ -32,3 +32,42 @@ class Trip:
         finally:
             cursor.close()
             connection.close()
+            
+    def update(self, id: int):
+        connection = None
+        cursor = None
+        try:
+            connection = get_connection()
+            cursor = connection.cursor()
+            sql = "UPDATE trip SET name = %s, city = %s, latitude = %s, longitude = %s WHERE id = %s"
+            cursor.execute(sql, (self.name, self.city, self.latitude, self.longitude, id))
+            connection.commit()
+            return cursor.rowcount > 0
+        except Exception as ex:
+            print(ex)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+    @staticmethod
+    def delete(id: int):
+        connection = None
+        cursor = None
+        try:
+            connection = get_connection()
+            cursor = connection.cursor()
+            sql = "DELETE FROM trip WHERE id = %s"
+            cursor.execute(sql, (id,))
+            connection.commit()
+            return cursor.rowcount > 0
+        except Exception as ex:
+            print(ex)
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()

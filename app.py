@@ -23,5 +23,22 @@ def save_trip():
     success = id is not None
     return jsonify({"success": success, "id": id}), 200 if success else 500
 
+@app.route('/trips/<int:id>', methods=['PUT'])
+def update_trip(id):
+    data = request.json
+    trip = Trip(name=data['name'],
+                city=data['city'],
+                latitude=data['latitude'],
+                longitude=data['longitude'])
+    success = trip.update(id)
+    return jsonify({"success": success}), 200 if success else 400
+
+@app.route('/trips/<int:id>', methods=['DELETE'])
+def delete_trip(id):
+    success = Trip.delete(id)
+    return jsonify({"success": success}), 200 if success else 400
+
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
